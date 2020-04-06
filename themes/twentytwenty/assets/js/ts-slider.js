@@ -4,6 +4,20 @@ var ImgCount = $('.block_sliders_item').children().length;
 var TimeImg = 5000;
 $('.block_sliders_item').css('width', 100*ImgCount + '%');
 $('.block_sliders_item_url').css('width', 100/ImgCount + '%');
+$(function () {
+    var TimeInterval = setInterval(NextImg, TimeImg);
+    $('.block_sliders_items').hover(function() {
+        clearInterval(TimeInterval);
+    }, function() {
+        TimeInterval = setInterval(NextImg, TimeImg);
+    });
+$('.btn_next').click(function() {
+        NextImg();
+    });
+$('.btn_prev').click(function() {
+        PrevImg();
+    });
+});
 function NextImg() {
 
 	if (ImgNow == ImgCount || ImgNow <= 0 || ImgNow > ImgCount) {
@@ -26,19 +40,4 @@ function PrevImg() {
         ImgNow--;
     }
 }
-$(function () {
-    var TimeInterval = setInterval(NextImg, TimeImg);
-    $('.block_sliders_items').hover(function() {
-        clearInterval(TimeInterval);
-    }, function() {
-        TimeInterval = setInterval(NextImg, TimeImg);
-    });
-    $('.btn_next').click(function() {
-        NextImg();
-        clearInterval(TimeInterval);
-    });
-    $('.btn_prev').click(function() {
-        PrevImg();
-        clearInterval(TimeInterval);
-    });
-});
+
